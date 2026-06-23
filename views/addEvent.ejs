@@ -1,0 +1,101 @@
+<%- include('header', { activeNav: 'add' }) %>
+
+<section class="section">
+    <div class="wrap">
+        <div class="form-shell" style="max-width: 760px; margin: 0 auto;">
+            <div class="form-shell-head">
+                <div>
+                    <span class="eyebrow">New listing</span>
+                    <h1>Print a new ticket</h1>
+                </div>
+                <span class="form-kicker">001 — DRAFT</span>
+            </div>
+
+            <form class="ticket-form" action="/insertEvent" method="post" enctype="multipart/form-data">
+
+                <div class="field-grid">
+                    <div class="field field-full">
+                        <label for="titleName">Event name</label>
+                        <input type="text" id="titleName" name="titleName" placeholder="e.g. Midnight Jazz Sessions" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="hostName">Hosted by</label>
+                        <input type="text" id="hostName" name="hostName" placeholder="Your name or organization" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="eventType">Category</label>
+                        <select id="eventType" name="eventType" required>
+                            <option value="">Choose a category</option>
+                            <option value="Music">Music</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Business">Business</option>
+                            <option value="Education">Education</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="scheduleDate">Date</label>
+                        <input type="date" id="scheduleDate" name="scheduleDate" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="scheduleTime">Time</label>
+                        <input type="time" id="scheduleTime" name="scheduleTime" required>
+                    </div>
+
+                    <div class="field field-full">
+                        <label for="venue">Venue</label>
+                        <input type="text" id="venue" name="venue" placeholder="Street, city, or building name" required>
+                    </div>
+
+                    <div class="field field-full">
+                        <label for="details">Description</label>
+                        <textarea id="details" name="details" placeholder="What's the night about? Who's it for?" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-divider"><span class="form-divider-label">Box office details</span></div>
+
+                <div class="field-grid">
+                    <div class="field">
+                        <label for="entryFee">Ticket price (USD)</label>
+                        <input type="number" id="entryFee" name="entryFee" min="0" step="0.01" placeholder="0.00" required>
+                        <p class="field-hint">Enter 0 for a free event.</p>
+                    </div>
+
+                    <div class="field">
+                        <label for="seatCapacity">Total seats</label>
+                        <input type="number" id="seatCapacity" name="seatCapacity" min="1" placeholder="e.g. 120" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="eventStatus">Status</label>
+                        <select id="eventStatus" name="eventStatus">
+                            <option value="Active">Active — on sale</option>
+                            <option value="InActive">Inactive — hidden / sold out</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="coverImage">Poster image</label>
+                        <div class="file-drop">
+                            <input type="file" id="coverImage" name="coverImage" accept="image/*" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Print this ticket</button>
+                    <a href="/view-event" class="btn btn-ghost">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<%- include('footer') %>

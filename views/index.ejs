@@ -1,0 +1,136 @@
+<%- include('header', { activeNav: 'home' }) %>
+
+<%
+    var events = typeof allEvents !== 'undefined' ? allEvents : [];
+    var sorted = events.slice().sort(function (a, b) {
+        return new Date(a.scheduleDate) - new Date(b.scheduleDate);
+    });
+    var featured = sorted.length ? sorted[0] : null;
+
+    function formatDate(d) {
+        return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    function formatFee(fee) {
+        var n = Number(fee);
+        return n > 0 ? ('$' + n.toFixed(2)) : 'Free';
+    }
+%>
+
+<section class="hero">
+    <div class="wrap hero-grid">
+        <div class="hero-copy">
+            <span class="eyebrow">Box office, simplified</span>
+            <h1 class="hero-title">Get in. <em>Don't</em><br>miss it.</h1>
+            <p class="hero-sub">Stubhouse is a no-fuss box office for independent organizers — list a date, set a price, and watch the seats go. No middlemen, no clutter.</p>
+            <div class="hero-actions">
+                <a href="#upcoming" class="btn btn-primary">Browse events</a>
+                <a href="/add-event" class="btn btn-outline">Host an event</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <% if (featured) { %>
+            <div class="stub hero-stub">
+                <div class="stub-main">
+                    <span class="stub-eyebrow"><%= featured.eventType %></span>
+                    <h3 class="stub-event-name"><%= featured.titleName %></h3>
+                    <div class="stub-meta">
+                        <%= formatDate(featured.scheduleDate) %> · <%= featured.scheduleTime %><br>
+                        <%= featured.venue %>
+                    </div>
+                </div>
+                <div class="stub-side">
+                    <span class="stub-admit">ADMIT ONE</span>
+                    <span class="stub-price"><%= formatFee(featured.entryFee) %></span>
+                </div>
+            </div>
+            <% } else { %>
+            <div class="stub hero-stub">
+                <div class="stub-main">
+                    <span class="stub-eyebrow">Open slot</span>
+                    <h3 class="stub-event-name">Your event<br>could go here</h3>
+                    <div class="stub-meta">Pick a date · Pick a venue<br>Stubhouse handles the rest</div>
+                </div>
+                <div class="stub-side">
+                    <span class="stub-admit">ADMIT ONE</span>
+                    <span class="stub-price">—</span>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</section>
+
+<section class="strip">
+    <div class="wrap strip-grid">
+        <div class="strip-item" data-reveal>
+            <span class="strip-num">No middleman fees</span>
+            <h3>Keep what you sell</h3>
+            <p>List a price, keep the take. We don't sit between you and your audience.</p>
+        </div>
+        <div class="strip-item" data-reveal>
+            <span class="strip-num">Live in minutes</span>
+            <h3>Built for one person</h3>
+            <p>Add a poster, a date, and a seat count — your event is on the wall right away.</p>
+        </div>
+        <div class="strip-item" data-reveal>
+            <span class="strip-num">Always current</span>
+            <h3>Open or sold out</h3>
+            <p>Mark an event active or inactive and the listing updates everywhere instantly.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="upcoming">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <span class="eyebrow">On sale now</span>
+                <h2>Upcoming events</h2>
+                <p>Every listing currently on the board, newest dates first.</p>
+            </div>
+            <a href="/add-event" class="btn btn-coral">List an event</a>
+        </div>
+
+        <% if (sorted.length > 0) { %>
+        <div class="ticket-grid">
+            <% sorted.forEach(function (event) { %>
+            <article class="event-ticket" data-reveal>
+                <div class="ticket-photo">
+                    <img src="/assets/images/<%= event.coverImage %>" alt="<%= event.titleName %>" loading="lazy">
+                    <span class="ticket-status <%= event.eventStatus === 'InActive' ? 'is-inactive' : 'is-active' %>">
+                        <%= event.eventStatus === 'InActive' ? 'Sold out' : 'On sale' %>
+                    </span>
+                </div>
+                <div class="ticket-perf"></div>
+                <div class="ticket-body">
+                    <h3><%= event.titleName %></h3>
+                    <p class="ticket-host">Hosted by <%= event.hostName %> · <%= event.venue %></p>
+                    <div class="ticket-facts">
+                        <div>
+                            <span class="fact-label">Date</span>
+                            <%= formatDate(event.scheduleDate) %>
+                        </div>
+                        <div>
+                            <span class="fact-label">Price</span>
+                            <span class="ticket-price"><%= formatFee(event.entryFee) %></span>
+                        </div>
+                    </div>
+                    <div class="ticket-cta">
+                        <a href="/contact" class="btn btn-outline btn-sm btn-block">Reserve a seat</a>
+                    </div>
+                </div>
+            </article>
+            <% }); %>
+        </div>
+        <% } else { %>
+        <div class="empty-state">
+            <h3>The board is empty</h3>
+            <p>Nothing's on sale yet. Be the first to put an event up.</p>
+            <a href="/add-event" class="btn btn-primary">List an event</a>
+        </div>
+        <% } %>
+    </div>
+</section>
+
+<%- include('footer') %>

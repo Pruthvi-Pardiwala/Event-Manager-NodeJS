@@ -1,0 +1,103 @@
+<%- include('header', { activeNav: 'view' }) %>
+
+<section class="section">
+    <div class="wrap">
+        <div class="form-shell" style="max-width: 760px; margin: 0 auto;">
+            <div class="form-shell-head">
+                <div>
+                    <span class="eyebrow">Editing listing</span>
+                    <h1><%= event.titleName %></h1>
+                </div>
+                <span class="form-kicker">#<%= String(event._id).slice(-6).toUpperCase() %></span>
+            </div>
+
+            <form class="ticket-form" action="/update-event/<%= event._id %>" method="POST" enctype="multipart/form-data">
+
+                <div class="field-grid">
+                    <div class="field field-full">
+                        <label for="titleName">Event name</label>
+                        <input type="text" id="titleName" name="titleName" value="<%= event.titleName %>" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="hostName">Hosted by</label>
+                        <input type="text" id="hostName" name="hostName" value="<%= event.hostName %>" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="eventType">Category</label>
+                        <select id="eventType" name="eventType" required>
+                            <option value="Music" <%= event.eventType === 'Music' ? 'selected' : '' %>>Music</option>
+                            <option value="Entertainment" <%= event.eventType === 'Entertainment' ? 'selected' : '' %>>Entertainment</option>
+                            <option value="Sports" <%= event.eventType === 'Sports' ? 'selected' : '' %>>Sports</option>
+                            <option value="Technology" <%= event.eventType === 'Technology' ? 'selected' : '' %>>Technology</option>
+                            <option value="Business" <%= event.eventType === 'Business' ? 'selected' : '' %>>Business</option>
+                            <option value="Education" <%= event.eventType === 'Education' ? 'selected' : '' %>>Education</option>
+                            <option value="Other" <%= event.eventType === 'Other' ? 'selected' : '' %>>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="scheduleDate">Date</label>
+                        <input type="date" id="scheduleDate" name="scheduleDate" value="<%= event.scheduleDate.toISOString().split('T')[0] %>" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="scheduleTime">Time</label>
+                        <input type="time" id="scheduleTime" name="scheduleTime" value="<%= event.scheduleTime %>" required>
+                    </div>
+
+                    <div class="field field-full">
+                        <label for="venue">Venue</label>
+                        <input type="text" id="venue" name="venue" value="<%= event.venue %>" required>
+                    </div>
+
+                    <div class="field field-full">
+                        <label for="details">Description</label>
+                        <textarea id="details" name="details" required><%= event.details %></textarea>
+                    </div>
+                </div>
+
+                <div class="form-divider"><span class="form-divider-label">Box office details</span></div>
+
+                <div class="field-grid">
+                    <div class="field">
+                        <label for="entryFee">Ticket price (USD)</label>
+                        <input type="number" id="entryFee" name="entryFee" min="0" step="0.01" value="<%= event.entryFee %>" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="seatCapacity">Total seats</label>
+                        <input type="number" id="seatCapacity" name="seatCapacity" min="1" value="<%= event.seatCapacity %>" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="eventStatus">Status</label>
+                        <select id="eventStatus" name="eventStatus">
+                            <option value="Active" <%= event.eventStatus === 'Active' ? 'selected' : '' %>>Active — on sale</option>
+                            <option value="InActive" <%= event.eventStatus === 'InActive' ? 'selected' : '' %>>Inactive — hidden / sold out</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="coverImage">Poster image</label>
+                        <div class="current-photo">
+                            <img src="/assets/images/<%= event.coverImage %>" alt="Current poster for <%= event.titleName %>">
+                            <span>Current poster — upload a new file only if you want to replace it.</span>
+                        </div>
+                        <div class="file-drop">
+                            <input type="file" id="coverImage" name="coverImage" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <a href="/view-event" class="btn btn-ghost">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<%- include('footer') %>

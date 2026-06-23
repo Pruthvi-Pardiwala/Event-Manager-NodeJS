@@ -1,0 +1,80 @@
+<%- include('header', { activeNav: 'view' }) %>
+
+<%
+    var events = typeof allEvents !== 'undefined' ? allEvents : [];
+
+    function formatDate(d) {
+        return d ? new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '—';
+    }
+    function formatFee(fee) {
+        var n = Number(fee);
+        return n > 0 ? ('$' + n.toFixed(2)) : 'Free';
+    }
+%>
+
+<section class="section">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <span class="eyebrow">Manage</span>
+                <h2>All events</h2>
+                <p>Every listing on the board — edit the details or pull it down when it's done.</p>
+            </div>
+            <a href="/add-event" class="btn btn-primary">List an event</a>
+        </div>
+
+        <div class="ledger-toolbar">
+            <span class="ledger-count"><%= events.length %> event<%= events.length === 1 ? '' : 's' %> on file</span>
+        </div>
+
+        <% if (events.length > 0) { %>
+        <div class="ledger">
+            <% events.forEach(function (event) { %>
+            <div class="ledger-row <%= event.eventStatus === 'InActive' ? 'is-inactive' : '' %>">
+                <div class="ledger-thumb">
+                    <% if (event.coverImage) { %>
+                        <img src="/assets/images/<%= event.coverImage %>" alt="<%= event.titleName %>">
+                    <% } else { %>
+                        <img src="/assets/images/logo.png" alt="No poster uploaded">
+                    <% } %>
+                </div>
+
+                <div class="ledger-title">
+                    <%= event.titleName %>
+                    <small><%= event.hostName %> · <%= event.venue %></small>
+                </div>
+
+                <div class="ledger-cell">
+                    <span class="fact-label">Date</span>
+                    <%= formatDate(event.scheduleDate) %><% if (event.scheduleTime) { %> · <%= event.scheduleTime %><% } %>
+                </div>
+
+                <div class="ledger-cell">
+                    <span class="fact-label">Price</span>
+                    <%= formatFee(event.entryFee) %>
+                </div>
+
+                <span class="ledger-status"><%= event.eventStatus === 'InActive' ? 'Inactive' : 'Active' %></span>
+
+                <div class="ledger-actions">
+                    <a href="/edit-event/<%= event._id %>" class="icon-btn" aria-label="Edit <%= event.titleName %>">
+                        <svg viewBox="0 0 24 24"><path d="M4 20h4l11-11-4-4L4 16v4z" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 5l4 4" stroke-linecap="round"/></svg>
+                    </a>
+                    <a href="/delete-event/<%= event._id %>" class="icon-btn danger" aria-label="Delete <%= event.titleName %>" data-confirm-delete>
+                        <svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V4h6v3m-8 0 1 13h8l1-13" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+        <% } else { %>
+        <div class="empty-state">
+            <h3>No events on file</h3>
+            <p>Once you list an event, it'll show up here for editing and tracking.</p>
+            <a href="/add-event" class="btn btn-primary">List an event</a>
+        </div>
+        <% } %>
+    </div>
+</section>
+
+<%- include('footer') %>
