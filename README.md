@@ -96,7 +96,7 @@ Event-Management/
 
 ## 🏠 Homepage (Before Events Added)
 
-Shows the Upcoming Events section when no events are available.
+<img width="1923" height="1857" alt="localhost_9000_" src="https://github.com/user-attachments/assets/36607a82-195c-4d55-9ed4-4e0335faf5db" />
 
 
 
@@ -104,7 +104,7 @@ Shows the Upcoming Events section when no events are available.
 
 ## ➕ Create New Event
 
-Admin panel page used for creating events and uploading event images.
+<img width="1922" height="1104" alt="localhost_9000_view-event" src="https://github.com/user-attachments/assets/a211d773-608e-4360-a644-3d927dbfe4c6" />
 
 
 
@@ -112,14 +112,14 @@ Admin panel page used for creating events and uploading event images.
 
 ## 📋 Event view-table (No Data)
 
-Displays an empty table when there are no events available.
+<img width="2376" height="1381" alt="localhost_9000_view-event" src="https://github.com/user-attachments/assets/e43d679c-7cee-4d18-9ab6-b2c4bd05b668" />
 
 
 ---
 
 ## 📊 Event table
 
-Admin dashboard displaying all events with Edit and Delete actions.
+<img width="1916" height="1104" alt="localhost_9000_view-event (1)" src="https://github.com/user-attachments/assets/57e81b02-65d6-4ade-a493-e4032bb22c98" />
 
 ### Features
 
@@ -156,23 +156,7 @@ Events displayed on the website for visitors.
 
 
 ---
-# 📌 Sample Event Data
 
-```json
-{
-  "titleName": "KHI KHI COMEDY SHOW",
-  "hostName": "KUKDI CHOPDi",
-  "scheduleDate": "2026-06-14",
-  "scheduleTime": "18:00",
-  "venue": "Kukdi Chopdi : Surat",
-  "eventType": "Other",
-  "entryFee": 149,
-  "seatCapacity": 1000,
-  "eventStatus": "Active"
-}
-```
-
----
 
 # 🌟 Future Enhancements
 
