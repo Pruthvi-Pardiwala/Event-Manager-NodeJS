@@ -90,8 +90,6 @@ Event-Management/
 
 
 
----
-
 # 📸 Application Screenshots
 
 ## 🏠 Homepage (Before Events Added)
@@ -121,6 +119,13 @@ Event-Management/
 
 <img width="1916" height="1104" alt="localhost_9000_view-event (1)" src="https://github.com/user-attachments/assets/57e81b02-65d6-4ade-a493-e4032bb22c98" />
 
+---
+
+## Video Explain
+
+https://drive.google.com/file/d/1wV7RISlWU2xb0HbmJBVtAV7KX2A1gW2z/view?usp=sharing
+
+---
 ### Features
 
 - Event Image
